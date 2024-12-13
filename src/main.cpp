@@ -3,31 +3,12 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <sstream>
-#include <iomanip>
 #include "globals.h"
 #include "init.cpp"
+#include "localTime.cpp"
 SDL_Color color = {255, 225, 225, 255};
-SDL_Rect destRect = {10, 0, 0, 0};
+SDL_Rect destRect = {15, 0, 0, 0};
 // Function to calculate flicker intensity (same as your previous function, but now returning float)
-
-std::string getLocalTime() {
-    // Get current time
-    std::time_t now = std::time(0);
-    
-    // Convert to local time
-    struct tm* localTime = std::localtime(&now);
-    
-    // Use stringstream to format time
-    std::stringstream timeStream;
-    timeStream << std::setfill('0') 
-               << std::setw(2) << localTime->tm_hour << ":"
-               << std::setw(2) << localTime->tm_min << ":"
-               << std::setw(2) << localTime->tm_sec;
-
-    // Return the formatted time string
-    return timeStream.str();
-}
 
 float getFlickerIntensity() {
     return 0.2f + static_cast<float>(std::rand()) / (static_cast<float>(RAND_MAX / 1.0f));
@@ -42,7 +23,6 @@ void renderWithGlow(SDL_Renderer* renderer, SDL_Texture* textTexture, SDL_Rect d
     } else {
         glowAlpha = static_cast<Uint8>(128);
     }
-    std::cout << static_cast<int>(glowAlpha) << std::endl;
     // Render the glow with adjusted opacity
     SDL_SetTextureColorMod(textTexture, glowColor.r, glowColor.g, glowColor.b); // Set glow color
     SDL_SetTextureAlphaMod(textTexture, glowAlpha); // Adjust glow opacity based on flicker intensity
@@ -89,7 +69,7 @@ void changeNixieText(const std::string& newText, SDL_Texture*& customTexture, SD
 
 int main(int argc, char* argv[]) {
     std::srand(std::time(NULL));
-    
+
     if (SDLInicial() != 0) {
         return 1; // Initialization failed
     }
@@ -104,21 +84,38 @@ int main(int argc, char* argv[]) {
     bool running = true;
     SDL_Event event;
 
-    while (running) {
+    bool dotBlink = false; // State for colon blinking
+    Uint32 lastBlinkTime = SDL_GetTicks(); // Track the last blink time
+    Uint32 blinkInterval = 500; // Blink interval in milliseconds
+
+while (running) {
     // Handle events
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) running = false;
     }
-    std::string localTimeStr = getLocalTime();
-    const char* localTimeCStr = localTimeStr.c_str();
 
-    //Time update
-    changeNixieText(localTimeCStr, textTexture, textSurface, g_renderer, g_font);
+    // Get the current time in milliseconds
+    Uint32 currentTimeMs = SDL_GetTicks();
+
+    // Update `dotBlink` based on the blink interval
+    if (currentTimeMs - lastBlinkTime >= blinkInterval) {
+        dotBlink = !dotBlink; // Toggle the colon state
+        lastBlinkTime = currentTimeMs; // Reset blink timer
+    }
+
+    // Get the current time string with blinking colon
+    std::string currentTime = getLocalTime(C_STYLE, dotBlink);
+
+    // Update the text texture only if the time string has changed
+    static std::string previousTime;
+    if (currentTime != previousTime) {
+        changeNixieText(currentTime, textTexture, textSurface, g_renderer, g_font);
+        previousTime = currentTime;
+    }
 
     // Clear screen
     SDL_SetRenderDrawColor(g_renderer, 0, 0, 0, 255);
     SDL_RenderClear(g_renderer);
-
 
     // Glow color with flickering
     SDL_Color glowColor = {200, 10, 0, 128};
@@ -130,6 +127,7 @@ int main(int argc, char* argv[]) {
     // Cap frame rate
     SDL_Delay(30); // Roughly 60 FPS
 }
+
 
 
     SDL_DestroyTexture(textTexture);

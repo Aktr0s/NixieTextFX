@@ -18,7 +18,15 @@ int SDLInicial() {
         return 1;
     }
 
-    g_window = SDL_CreateWindow("NixieTube Test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+    g_window = SDL_CreateWindow(
+        "NixieTube Clock",
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED,
+        600,
+        145,
+        SDL_WINDOW_SHOWN
+    );
+
     if (!g_window) {
         std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
         TTF_Quit();
@@ -35,7 +43,7 @@ int SDLInicial() {
         return 1;
     }
 
-    g_font = TTF_OpenFont("../assets/NixieOne-Regular.ttf", 120);
+    g_font = TTF_OpenFont("../assets/NixieOne-Mono.ttf", 120);
     if (!g_font) {
         std::cerr << "TTF_OpenFont Error: " << TTF_GetError() << std::endl;
         SDL_DestroyRenderer(g_renderer);
