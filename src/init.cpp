@@ -1,6 +1,6 @@
 #include <iostream>
-#include "globals.h"
-#include "NixieOne_Mono_ttf.h"
+#include "globals.hpp"
+#include "NixieOne_Mono_ttf.hpp"
 // Define the global variables
 SDL_Window* g_window = nullptr;
 SDL_Renderer* g_renderer = nullptr;

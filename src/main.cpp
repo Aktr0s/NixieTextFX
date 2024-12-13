@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include "globals.h"
+#include "globals.hpp"
 #include "init.cpp"
 #include "localTime.cpp"
 SDL_Color color = {255, 225, 225, 255};
