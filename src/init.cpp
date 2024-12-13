@@ -1,12 +1,18 @@
 #include <iostream>
 #include "globals.h"
-
+#include "NixieOne_Mono_ttf.h"
 // Define the global variables
 SDL_Window* g_window = nullptr;
 SDL_Renderer* g_renderer = nullptr;
 TTF_Font* g_font = nullptr;
 
-int SDLInicial() {
+int NixieInicial() {
+    SDL_RWops *fontRW = SDL_RWFromMem(NixieOne_Mono_ttf, NixieOne_Mono_ttf_len);
+    if (!fontRW) {
+        std::cerr << "Failed to create RWops from memory: " << SDL_GetError() << std::endl;
+        return -1;
+    }
+
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         std::cerr << "SDL_Init Error: " << SDL_GetError();
         return 1;
@@ -43,7 +49,8 @@ int SDLInicial() {
         return 1;
     }
 
-    g_font = TTF_OpenFont("../assets/NixieOne-Mono.ttf", 120);
+    //g_font = TTF_OpenFont("../assets/NixieOne-Mono.ttf", 120);
+    g_font = TTF_OpenFontRW(fontRW, 1, 120);
     if (!g_font) {
         std::cerr << "TTF_OpenFont Error: " << TTF_GetError() << std::endl;
         SDL_DestroyRenderer(g_renderer);

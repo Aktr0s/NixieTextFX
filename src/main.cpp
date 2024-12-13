@@ -70,7 +70,7 @@ void changeNixieText(const std::string& newText, SDL_Texture*& customTexture, SD
 int main(int argc, char* argv[]) {
     std::srand(std::time(NULL));
 
-    if (SDLInicial() != 0) {
+    if (NixieInicial() != 0) {
         return 1; // Initialization failed
     }
 
