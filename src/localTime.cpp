@@ -8,26 +8,41 @@ enum Style {
     C_STYLE = false
 };
 
-std::string getLocalTime(Style style, bool dotBlink) {
+enum withSeconds {
+    WITH_SECONDS = true,
+    WITHOUT_SECONDS = false
+};
+
+std::string getLocalTime(Style style, bool dotBlink, withSeconds withSeconds) {
     // Get current time
     std::time_t now = std::time(0);
     struct tm* localTime = std::localtime(&now);
 
     // Use stringstream to format time
     std::stringstream timeStream;
-    timeStream << std::setfill('0') 
-               << std::setw(2) << localTime->tm_hour << ":"
-               << std::setw(2) << localTime->tm_min << ":"
-               << std::setw(2) << localTime->tm_sec;
-
+    if (withSeconds) {
+        timeStream << std::setfill('0') 
+                   << std::setw(2) << localTime->tm_hour << ":"
+                   << std::setw(2) << localTime->tm_min << ":"
+                   << std::setw(2) << localTime->tm_sec;
+    } else if (!withSeconds) {
+        timeStream << std::setfill('0')
+                   << std::setw(2) << localTime->tm_hour << ":"
+                   << std::setw(2) << localTime->tm_min;
+    }
+    
     // Convert the stream to a string
     std::string timeStr = timeStream.str();
 
     // Handle blinking effect
     if (!dotBlink) {
-        timeStr[2] = ' '; // Replace first colon
-        timeStr[5] = ' '; // Replace second colon
-    }
+        if (withSeconds){
+            timeStr[2] = ' '; // Replace first colon
+            timeStr[5] = ' '; // Replace second colon
+        } else if (!withSeconds){
+            timeStr[2] = ' ';
+        }
+    }   
 
     if (style == CPP_STYLE) {
         return timeStr; // Return as C++ string
