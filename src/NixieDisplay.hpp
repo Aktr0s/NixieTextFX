@@ -16,7 +16,6 @@ private:
     SDL_Color textColor;
     SDL_Color glowColor;
     SDL_Renderer* renderer;
-    SDL_RWops* fontRW;
     TTF_Font* font;
     int textSpacing;
     int textSize;
@@ -29,7 +28,7 @@ private:
     bool clockSeconds;
 
     // Helping functions
-    void updateFlicker();
+    
     void cleanupResources();
     void updateTextSize();
 
@@ -37,15 +36,14 @@ private:
     void loadFontExternal();
     void loadFontEmbedded();
     void updateClock();
-
 public:
     // Constructor and Destructor
     NixieDisplay(SDL_Renderer* renderer, const std::string& fontPath, 
-                 SDL_Color textColor, SDL_Color glowColor, int textSize = 50);
+                 SDL_Color textColor = {225, 200, 0, 225}, SDL_Color glowColor = {200,10,0,128}, int textSize = 120);
 
     // Constructor for embedded fonts
     NixieDisplay(SDL_Renderer* renderer, const unsigned char* fontData, size_t fontDataSize, 
-                 SDL_Color textColor, SDL_Color glowColor, int textSize = 50);
+                 SDL_Color textColor = {225, 200, 0, 255}, SDL_Color glowColor = {200,10,0,128}, int textSize = 120);
 
 
     ~NixieDisplay();
@@ -53,6 +51,7 @@ public:
     // Methods with extended functionality
     void setText(const std::string& newText);
     void render();
+    void updateFlicker();
     void toggleFlickering(bool enable);
     void setGlowRadius(int radius);
     void setTextColor(SDL_Color newColor);

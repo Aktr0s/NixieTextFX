@@ -15,6 +15,8 @@ NixieDisplay::NixieDisplay(SDL_Renderer* renderer, const std::string& fontPath,
     glowRadius = 3; // Default glow radius
     flickeringEnabled = false; // Disable flickering by default
     textSpacing = 0; // Default spacing
+    clockMode = false; // On default clockMode is dissabled
+    clockSeconds = false; // And on default it does not show seconds
     std::srand(std::time(nullptr));
 }
 
@@ -38,6 +40,7 @@ NixieDisplay::NixieDisplay(SDL_Renderer* renderer, const unsigned char* fontData
 //Destructor
 NixieDisplay::~NixieDisplay() {
     cleanupResources(); // Free resources
+    TTF_CloseFont(font);
 }
 
 void NixieDisplay::loadFontExternal() {
@@ -113,12 +116,15 @@ void NixieDisplay::setText(const std::string& newText) {
 // Render the nixie display
 void NixieDisplay::render() {
     updateFlicker(); // Update flicker intensities
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black background
+    SDL_RenderClear(renderer);
 
     int xOffset = destRect.x; // Start rendering from initial position
     for (size_t i = 0; i < textures.size(); ++i) {
         if (!textures[i]) continue;
 
         Uint8 glowAlpha = static_cast<Uint8>(128 * flickerIntensities[i]); // Adjust glow alpha
+
 
         SDL_Rect charRect = {xOffset, destRect.y, surfaces[i]->w, surfaces[i]->h};
 

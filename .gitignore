@@ -6,3 +6,10 @@ CMakeCache.txt
 Makefile
 makeAndRun.sh
 .DS_Store
+SDL2_ttf.dll
+SDL2.dll
+main.exe
+NixieTube-Sim.exe
+compile.bat
+include/
+lib/
