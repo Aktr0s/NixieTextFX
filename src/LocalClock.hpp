@@ -3,15 +3,21 @@
 
 #include <string>
 
-// Enumerations for style and seconds options
+
 enum Style {
     CPP_STYLE = true,
     C_STYLE = false
 };
 
+/**
+ * @enum withSeconds
+ * @brief Specifies whether to include seconds in time representation.
+ * 
+ * This enumeration defines the options for including or excluding seconds.
+ */
 enum withSeconds {
-    WITH_SECONDS = true,
-    WITHOUT_SECONDS = false
+    WITH_SECONDS = true,    /**< Include seconds in time representation. */
+    WITHOUT_SECONDS = false /**< Exclude seconds in time representation. */
 };
 
 // Function declaration

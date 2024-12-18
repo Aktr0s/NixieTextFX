@@ -1,10 +1,13 @@
 #include <iostream>
 #include "NixieInitGlobals.h"
+#include "NixieInit.hpp"
 // Define the global variables
 SDL_Window* g_window = nullptr;
 SDL_Renderer* g_renderer = nullptr;
 
-int NixieInicial(Sint16 width = 600, Sint16 height = 145) {
+
+
+int NixieInicial(Sint16 width, Sint16 height) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         std::cerr << "SDL_Init Error: " << SDL_GetError();
         return 1;

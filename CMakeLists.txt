@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(NixieTube-Sim VERSION 1.0)
+project(NixieTextFX VERSION 1.0)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -49,12 +49,12 @@ elseif(UNIX AND NOT APPLE)
 endif()
 
 # Add executable and source files
-add_executable(NixieTube-Sim
+add_executable(NixieTextFX
     src/main.cpp
 )
 
 # Link libraries
-target_link_libraries(NixieTube-Sim
+target_link_libraries(NixieTextFX
     SDL2::SDL2
     SDL2_ttf::SDL2_ttf
 )

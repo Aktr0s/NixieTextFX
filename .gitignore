@@ -9,7 +9,8 @@ makeAndRun.sh
 SDL2_ttf.dll
 SDL2.dll
 main.exe
-NixieTube-Sim.exe
+NixieTextFX.exe
 compile.bat
 include/
 lib/
+doxygen_docs/
