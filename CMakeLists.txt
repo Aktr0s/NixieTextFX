@@ -9,6 +9,29 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 
+# Add an option to toggle warnings for unused/uninitialized variables
+option(ENABLE_STRICT_WARNINGS "Enable strict warnings for unused/uninitialized variables" ON)
+
+# Configure compiler warnings based on the option
+if(ENABLE_STRICT_WARNINGS)
+    if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+        add_compile_options(
+            -Wall
+            -Wextra
+            -Wpedantic
+            -Wshadow
+            -Wnon-virtual-dtor
+            -Wold-style-cast
+            -Wunused
+            -Wuninitialized
+        )
+    elseif (MSVC)
+        add_compile_options(
+            /W4
+            /permissive-
+        )
+    endif()
+endif()
 
 # Find and link packages installed via Homebrew or system-wide
 find_package(SDL2 REQUIRED)
@@ -24,8 +47,6 @@ elseif(UNIX AND NOT APPLE)
     # Linux specific includes (if needed)
     link_directories(/usr/local/lib)
 endif()
-
-
 
 # Add executable and source files
 add_executable(NixieTube-Sim

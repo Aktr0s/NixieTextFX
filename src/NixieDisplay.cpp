@@ -15,8 +15,9 @@ NixieDisplay::NixieDisplay(SDL_Renderer* renderer, const std::string& fontPath,
     glowRadius = 3; // Default glow radius
     flickeringEnabled = false; // Disable flickering by default
     textSpacing = 0; // Default spacing
-    clockMode = false; // On default clockMode is dissabled
-    clockSeconds = false; // And on default it does not show seconds
+    clockModeEnabled = false; // On default clockMode is dissabled
+    clockSecondsEnabled = WITHOUT_SECONDS; // And on default it does not show seconds
+    dotVisible = true;
     std::srand(std::time(nullptr));
 }
 
@@ -32,15 +33,16 @@ NixieDisplay::NixieDisplay(SDL_Renderer* renderer, const unsigned char* fontData
     glowRadius = 3; // Default glow radius
     flickeringEnabled = false; // Disable flickering by default
     textSpacing = 0; // Default spacing
-    clockMode = false; // On default clockMode is dissabled
-    clockSeconds = false; // And on default it does not show seconds
+    clockModeEnabled = false; // On default clockMode is dissabled
+    clockSecondsEnabled = WITHOUT_SECONDS; // And on default it does not show seconds
+    dotVisible = true;
     std::srand(std::time(nullptr));
 }
 
 //Destructor
 NixieDisplay::~NixieDisplay() {
     cleanupResources(); // Free resources
-    TTF_CloseFont(font);
+    //TTF_CloseFont(font); //Causes EXC_BAD_ACCESS
 }
 
 void NixieDisplay::loadFontExternal() {
@@ -114,7 +116,8 @@ void NixieDisplay::setText(const std::string& newText) {
 }
 
 // Render the nixie display
-void NixieDisplay::render() {
+void NixieDisplay::render(renderType type) {
+    updateClock();
     updateFlicker(); // Update flicker intensities
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black background
     SDL_RenderClear(renderer);
@@ -149,11 +152,31 @@ void NixieDisplay::render() {
 
         xOffset += charRect.w + textSpacing; // Space between characters
     }
+    if (type) {
+        SDL_RenderPresent(renderer);
+    }
 }
 
 void NixieDisplay::updateClock(){
-
+    if (clockModeEnabled){
+        std::string currentTime = getLocalTime(C_STYLE, dotVisible, clockSecondsEnabled);
+        static std::string previousTime;
+        if (currentTime != previousTime) {
+            previousTime = currentTime;
+            if (dotBlinkEnabled) {
+                dotVisible = !dotVisible;
+            }
+            setText(currentTime);
+        }
+    }
 }
+
+void NixieDisplay::clockMode(clockEnable enable, withSeconds secondsEnabled, blinkingDots blinkDotEnabled){
+    clockModeEnabled = enable;
+    clockSecondsEnabled = secondsEnabled;
+    dotBlinkEnabled = blinkDotEnabled;
+}
+
 
 // Toggle flickering
 void NixieDisplay::toggleFlickering(bool enable) {

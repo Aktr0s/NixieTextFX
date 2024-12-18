@@ -1,5 +1,5 @@
 #include <iostream>
-#include "NixieInitGlobals.hpp"
+#include "NixieInitGlobals.h"
 // Define the global variables
 SDL_Window* g_window = nullptr;
 SDL_Renderer* g_renderer = nullptr;
@@ -17,7 +17,7 @@ int NixieInicial(Sint16 width = 600, Sint16 height = 145) {
     }
 
     g_window = SDL_CreateWindow(
-        "NixieTube Clock",
+        "NixieTube Window",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         width,
@@ -49,7 +49,7 @@ int NixieInicial(Sint16 width = 600, Sint16 height = 145) {
 void NixieCleanup() {
     if (g_renderer) SDL_DestroyRenderer(g_renderer);
     if (g_window) SDL_DestroyWindow(g_window);
-    TTF_Quit();
+    //TTF_Quit();
     SDL_Quit();
-    std::cout << "Nixie Cleanup Done.." << std::endl;
+    std::cout << "Nixie Cleanup Done..." << std::endl;
 }
