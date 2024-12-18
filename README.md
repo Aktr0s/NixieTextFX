@@ -2,10 +2,10 @@
 > # ***In active development. Not finished.***
 > TODO:
 > - [X] Refactor the code into classes
-> - [ ] Make a clock mode with output options
+> - [X] Make a clock mode with output options
 > - [X] Make a text mode
 > - [ ] Make a little documentation to the code
-> - [ ] Maybe make it into a small library?
+> - [X] Maybe make it into a small library?
 > - [ ] Add tube textures. This i might not implement at all
 
 # NixieTube-Simulator
