@@ -20,8 +20,7 @@ int main(int argc, char* argv[]) {
     bool running = true;
     SDL_Event event;
     NixieDisplay nixie(g_renderer,NixieOne_Mono_ttf,NixieOne_Mono_ttf_len);
-    // Main application loop
-    //nixie.setText("12:34:56");
+    nixie.setPosition(13,0);
     nixie.clockMode(CLOCK_ENABLE,WITH_SECONDS,BLINKING_DOTS_OFF);
     nixie.toggleFlickering(true);
     while (running) {

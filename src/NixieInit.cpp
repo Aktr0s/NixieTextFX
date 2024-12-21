@@ -20,7 +20,7 @@ int NixieInicial(Sint16 width, Sint16 height) {
     }
 
     g_window = SDL_CreateWindow(
-        "NixieTube Window",
+        "NixieTextFX",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         width,
