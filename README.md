@@ -1,8 +1,9 @@
 > [!NOTE]
 > # ***It is finished.***
 
-# NixieTubeFX
+# <img src="https://github.com/user-attachments/assets/4968068e-deda-4ba2-ac70-e18cb540f32c" alt="NixieTextFX" width="100"> NixieTubeFX
 ### A small program that is supposed to imitate Nixie Display.
+
 ### I won't be implementing tube graphics themselves cause it's just not worth it.
 ### It's pain to implement and does not look as good as expected (I know because i saw).
 
