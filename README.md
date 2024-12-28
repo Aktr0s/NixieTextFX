@@ -16,4 +16,6 @@
 ### You also have Doxyfile to generate docs if you want (I dunno why would you).
 
 ### As for building, cmake should work on every system but i can't check it.
+    $ cmake .
+    $ make
 ### So if it doesn't work you will have to mess with it (Sorry!).
