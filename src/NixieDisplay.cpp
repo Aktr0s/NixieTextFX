@@ -119,7 +119,7 @@ void NixieDisplay::setText(const std::string& newText) {
 void NixieDisplay::render(renderType type) {
     updateClock();
     updateFlicker(); // Update flicker intensities
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black background
+    SDL_SetRenderDrawColor(renderer, 21, 23, 24, 255); // Black background
     SDL_RenderClear(renderer);
 
     int xOffset = destRect.x; // Start rendering from initial position
