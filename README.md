@@ -1,6 +1,3 @@
-> [!NOTE]
-> # ***It is finished.***
-
 # <img src="https://github.com/user-attachments/assets/4968068e-deda-4ba2-ac70-e18cb540f32c" alt="NixieTextFX" width="100"> NixieTubeFX
 ### A small program that is supposed to imitate Nixie Display.
 
