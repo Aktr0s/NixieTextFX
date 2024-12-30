@@ -1,10 +1,10 @@
-# <img src="https://github.com/user-attachments/assets/4968068e-deda-4ba2-ac70-e18cb540f32c" alt="NixieTextFX" width="100"> NixieTubeFX
+# <img src="https://github.com/user-attachments/assets/4968068e-deda-4ba2-ac70-e18cb540f32c" alt="NixieTextFX" width="100"> NixieTextFX
 ### A small program that is supposed to imitate Nixie Display.
 
 ### I won't be implementing tube graphics themselves cause it's just not worth it.
 ### It's pain to implement and does not look as good as expected (I know because i saw).
 
-### The program itself is designed to be portable so it can be used as a library
+### The code itself is designed to be portable so it can be used as a library
 > [!WARNING]
 > ## ***It needs SDL2 and SDL2_ttf to work***
 
@@ -13,6 +13,13 @@
 ### You also have Doxyfile to generate docs if you want (I dunno why would you).
 
 ### As for building, cmake should work on every system but i can't check it.
-    $ cmake .
-    $ make
+```
+$ cmake .
+$ make
+```
 ### So if it doesn't work you will have to mess with it (Sorry!).
+
+## Credits:
+- [OneNixie](https://fonts.google.com/specimen/Nixie+One) font by Jovanny Lemonad
+
+
